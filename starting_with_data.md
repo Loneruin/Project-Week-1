@@ -102,6 +102,7 @@ SELECT "productsku",
 		"v2ProductName",
 		"v2ProductCategory",
 		a."total_ordered",
+		"stockLevel",
 		"restockingLeadTime"
 	FROM("sales_report" a
 	 	JOIN "products" b
@@ -113,25 +114,27 @@ WHERE "v2ProductCategory" <> '(not set)'AND
 GROUP BY "productsku",
 		"v2ProductName",
 		"v2ProductCategory",
+		"stockLevel",
 		"restockingLeadTime",
 		a."total_ordered"
 ORDER BY "total_ordered" DESC,
 		"restockingLeadTime"
+LIMIT 10;
 ```
 Answer: In the result, we see that for the most purchased item, we have an average amount of restocking lead time. In my point of view, we may stock more top-selling products and check in stock regularly to maintain the flow of selling products
 
 ```SQL
-"productsku"	"v2ProductName"	"v2ProductCategory"	"total_ordered"	"restockingLeadTime"
-"GGOEGOAQ012899"	"Ballpoint LED Light Pen"	"Home/Office/Writing Instruments/"	456	11
-"GGOEGOAQ012899"	"Ballpoint LED Light Pen"	"Home/Office/"	456	11
-"GGOEGDHC074099"	"Google 17oz Stainless Steel Sport Bottle"	"Home/Accessories/Drinkware/"	334	13
-"GGOEGDHC074099"	"Google 17oz Stainless Steel Sport Bottle"	"Home/Shop by Brand/Google/"	334	13
-"GGOEGDHC074099"	"Google 17oz Stainless Steel Sport Bottle"	"Home/Drinkware/"	334	13
-"GGOEGDHC074099"	"Google 17oz Stainless Steel Sport Bottle"	"Home/Drinkware/Water Bottles and Tumblers/"	334	13
-"GGOEGOCB017499"	"Leatherette Journal"	"Home/Office/Notebooks & Journals/"	319	36
-"GGOEGOCB017499"	"Leatherette Journal"	"Home/Office/"	319	36
-"GGOEGOCC077999"	"Google Spiral Journal with Pen"	"Home/Office/Notebooks & Journals/"	290	10
-"GGOEGFYQ016599"	"Foam Can and Bottle Cooler"	"Home/Lifestyle/Fun/"	253	10
+"productsku"	"v2ProductName"	"v2ProductCategory"	"total_ordered"	"stockLevel"	"restockingLeadTime"
+"GGOEGOAQ012899"	"Ballpoint LED Light Pen"	"Home/Office/Writing Instruments/"	456	2098	11
+"GGOEGOAQ012899"	"Ballpoint LED Light Pen"	"Home/Office/"	456	2098	11
+"GGOEGDHC074099"	"Google 17oz Stainless Steel Sport Bottle"	"Home/Accessories/Drinkware/"	334	1390	13
+"GGOEGDHC074099"	"Google 17oz Stainless Steel Sport Bottle"	"Home/Shop by Brand/Google/"	334	1390	13
+"GGOEGDHC074099"	"Google 17oz Stainless Steel Sport Bottle"	"Home/Drinkware/Water Bottles and Tumblers/"	334	1390	13
+"GGOEGDHC074099"	"Google 17oz Stainless Steel Sport Bottle"	"Home/Drinkware/"	334	1390	13
+"GGOEGOCB017499"	"Leatherette Journal"	"Home/Office/Notebooks & Journals/"	319	4978	36
+"GGOEGOCB017499"	"Leatherette Journal"	"Home/Office/"	319	4978	36
+"GGOEGOCC077999"	"Google Spiral Journal with Pen"	"Home/Office/Notebooks & Journals/"	290	4668	10
+"GGOEGFYQ016599"	"Foam Can and Bottle Cooler"	"Home/Lifestyle/Fun/"	253	4495	10
 ```
 
 Question 4: 
